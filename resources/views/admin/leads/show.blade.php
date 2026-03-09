@@ -111,7 +111,7 @@
                 @if (! empty($aiMeta))
                     <x-ui.card class="dg-panel">
                         <h2 class="dg-title-sm">AI Processing</h2>
-                        <div class="dg-detail-list mb-2">
+                        <div class="dg-detail-list mb-2 mt-2">
                             <div class="dg-detail-item"><span>Provider</span><strong>{{ $aiMeta['provider'] ?? '-' }}</strong></div>
                             <div class="dg-detail-item"><span>Fallback Used</span><strong>{{ !empty($aiMeta['fallback_used']) ? 'Yes' : 'No' }}</strong></div>
                             <div class="dg-detail-item"><span>Processed At</span><strong>{{ $aiMeta['processed_at'] ?? '-' }}</strong></div>
