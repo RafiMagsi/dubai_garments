@@ -370,6 +370,33 @@ PDF is downloadable and can be sent via email.
 - Set storage permissions
 - Configure cron job
 
+## Implementation Setup (Local + Credentials)
+This project uses a two-file environment pattern:
+- `.env` for non-sensitive defaults
+- `.env.credentials.local` for secrets (ignored by git)
+
+Setup steps for a new developer:
+1. Copy base env file:
+`cp .env.example .env`
+2. Copy local credentials template:
+`cp .env.credentials.local.example .env.credentials.local`
+3. Add required secrets in `.env.credentials.local`:
+- `APP_KEY`
+- Database credentials
+- SMTP credentials
+- `OPENAI_API_KEY` (if AI features are enabled)
+4. Install and run:
+- `composer install`
+- `npm install`
+- `php artisan migrate`
+- `npm run dev` (or `npm run build`)
+- `php artisan serve`
+
+### Key Handling
+- Never commit real credentials to repository.
+- Laravel loads `.env.credentials.local` during bootstrap for local development.
+- For production deployment, environment values should be injected from GitHub Actions Secrets into server `.env`.
+
 ### Cron Command
 Run every minute:
 `php artisan schedule:run`

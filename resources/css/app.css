@@ -8,4 +8,93 @@
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+    --color-brand-50: #f5f8ff;
+    --color-brand-100: #e6edff;
+    --color-brand-500: #2b5cff;
+    --color-brand-600: #1945d8;
+    --color-ink-900: #0f172a;
+    --color-ink-700: #334155;
+    --color-ink-500: #64748b;
+    --color-surface: #ffffff;
+    --color-surface-soft: #f8fafc;
+    --radius-card: 1rem;
+    --shadow-card: 0 10px 24px -16px rgba(15, 23, 42, 0.35);
+}
+
+@layer base {
+    body {
+        color: var(--color-ink-900);
+        background:
+            radial-gradient(circle at 0% 0%, #dbeafe 0%, rgba(219, 234, 254, 0) 36%),
+            radial-gradient(circle at 100% 0%, #e0e7ff 0%, rgba(224, 231, 255, 0) 28%),
+            var(--color-surface-soft);
+    }
+}
+
+@layer components {
+    .dg-container {
+        width: min(1120px, calc(100% - 2rem));
+        margin-inline: auto;
+    }
+
+    .dg-card {
+        background-color: var(--color-surface);
+        border: 1px solid #e2e8f0;
+        border-radius: var(--radius-card);
+        box-shadow: var(--shadow-card);
+    }
+
+    .dg-btn-primary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 9999px;
+        padding: 0.7rem 1.15rem;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #fff;
+        background-color: var(--color-brand-500);
+        transition: background-color 120ms ease;
+    }
+
+    .dg-btn-primary:hover {
+        background-color: var(--color-brand-600);
+    }
+
+    .dg-btn-secondary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 9999px;
+        padding: 0.7rem 1.15rem;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--color-ink-900);
+        background-color: #fff;
+        border: 1px solid #cbd5e1;
+    }
+
+    .dg-badge {
+        display: inline-flex;
+        align-items: center;
+        border-radius: 9999px;
+        padding: 0.35rem 0.75rem;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--color-brand-600);
+        background-color: var(--color-brand-50);
+    }
+
+    .dg-section-title {
+        font-size: clamp(1.5rem, 2vw, 2rem);
+        font-weight: 700;
+        line-height: 1.2;
+        color: var(--color-ink-900);
+    }
+
+    .dg-section-copy {
+        font-size: 1rem;
+        color: var(--color-ink-700);
+        line-height: 1.6;
+    }
 }

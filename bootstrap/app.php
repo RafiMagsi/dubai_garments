@@ -1,10 +1,18 @@
 <?php
 
+use Dotenv\Dotenv;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 
-return Application::configure(basePath: dirname(__DIR__))
+$basePath = dirname(__DIR__);
+
+// Load local-only secrets before framework bootstrap.
+if (is_file($basePath.'/.env.credentials.local')) {
+    Dotenv::createMutable($basePath, '.env.credentials.local')->safeLoad();
+}
+
+$app = Application::configure(basePath: $basePath)
     ->withRouting(
         web: __DIR__.'/../routes/web.php',
         commands: __DIR__.'/../routes/console.php',
@@ -16,3 +24,5 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withExceptions(function (Exceptions $exceptions): void {
         //
     })->create();
+
+return $app;
