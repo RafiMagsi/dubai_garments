@@ -568,6 +568,54 @@
         color: #334155;
     }
 
+    .dg-status-list {
+        margin-top: 0.75rem;
+        display: grid;
+        gap: 0.5rem;
+    }
+
+    .dg-status-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        border-radius: 0.6rem;
+        padding: 0.45rem 0.7rem;
+        font-size: 0.85rem;
+        border: 1px solid #e2e8f0;
+    }
+
+    .dg-status-dot {
+        width: 0.6rem;
+        height: 0.6rem;
+        border-radius: 9999px;
+        background-color: #cbd5e1;
+    }
+
+    .dg-status-done {
+        background-color: #f0fdf4;
+        color: #166534;
+        border-color: #bbf7d0;
+    }
+
+    .dg-status-done .dg-status-dot {
+        background-color: #22c55e;
+    }
+
+    .dg-status-current {
+        background-color: #eff6ff;
+        color: #1d4ed8;
+        border-color: #bfdbfe;
+    }
+
+    .dg-status-current .dg-status-dot {
+        background-color: #3b82f6;
+    }
+
+    .dg-status-upcoming {
+        background-color: #f8fafc;
+        color: #475569;
+    }
+
     .dg-cta-grid {
         display: flex;
         flex-direction: column;

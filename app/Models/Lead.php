@@ -8,6 +8,7 @@ class Lead extends Model
 {
     protected $fillable = [
         'source',
+        'tracking_code',
         'customer_name',
         'company',
         'email',

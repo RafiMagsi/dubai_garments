@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
 
 class QuoteRequestController extends Controller
 {
@@ -80,8 +81,11 @@ class QuoteRequestController extends Controller
             $designFilePath = $request->file('design_file')->store('uploads/quote-requests', 'public');
         }
 
+        $trackingCode = $this->generateTrackingCode();
+
         Lead::create([
             'source' => 'quote_request_form',
+            'tracking_code' => $trackingCode,
             'customer_name' => $validated['customer_name'],
             'company' => $validated['company'] ?? null,
             'email' => $validated['email'],
@@ -99,13 +103,27 @@ class QuoteRequestController extends Controller
         ]);
 
         return redirect()
-            ->route('quote-requests.success');
+            ->route('quote-requests.success', [
+                'code' => $trackingCode,
+                'email' => $validated['email'],
+            ]);
     }
 
-    public function success(CatalogData $catalogData): View
+    public function success(Request $request, CatalogData $catalogData): View
     {
         return view('storefront.quote-requests.success', [
             'categories' => $catalogData->categories(),
+            'trackingCode' => (string) $request->query('code', ''),
+            'email' => (string) $request->query('email', ''),
         ]);
+    }
+
+    private function generateTrackingCode(): string
+    {
+        do {
+            $code = strtoupper(Str::random(10));
+        } while (Lead::query()->where('tracking_code', $code)->exists());
+
+        return $code;
     }
 }

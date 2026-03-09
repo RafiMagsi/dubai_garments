@@ -9,7 +9,7 @@
             <ul class="dg-footer-list">
                 <li><a href="{{ route('products.index') }}">Products</a></li>
                 <li><a href="{{ route('quote-requests.create') }}">Request Quote</a></li>
-                <li><a href="#">Customer Portal</a></li>
+                <li><a href="{{ route('portal.index') }}">Customer Portal</a></li>
             </ul>
         </div>
         <div>

@@ -23,7 +23,7 @@
             </form>
 
             <div class="dg-header-actions">
-                <x-ui.button variant="secondary" href="#">Customer Portal</x-ui.button>
+                <x-ui.button variant="secondary" :href="route('portal.index')">Customer Portal</x-ui.button>
                 <x-ui.button :href="route('quote-requests.create')">Request Bulk Quote</x-ui.button>
             </div>
         </x-ui.card>
