@@ -67,6 +67,7 @@ class DealManagementController extends Controller
             'stages' => self::STAGES,
             'priorities' => self::PRIORITIES,
             'assignableUsers' => User::query()->whereIn('role', ['admin', 'sales'])->orderBy('name')->get(),
+            'communications' => $dealModel->communications()->latest('id')->limit(8)->get(),
         ]);
     }
 

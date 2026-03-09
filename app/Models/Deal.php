@@ -40,4 +40,9 @@ class Deal extends Model
     {
         return $this->hasMany(Quote::class);
     }
+
+    public function communications(): HasMany
+    {
+        return $this->hasMany(Communication::class);
+    }
 }

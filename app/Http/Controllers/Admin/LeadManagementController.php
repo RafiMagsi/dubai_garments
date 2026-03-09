@@ -48,6 +48,7 @@ class LeadManagementController extends Controller
         return view('admin.leads.show', [
             'lead' => $lead,
             'statuses' => self::STATUSES,
+            'communications' => $lead->communications()->latest('id')->limit(8)->get(),
         ]);
     }
 

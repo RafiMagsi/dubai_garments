@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\CommunicationController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DealManagementController;
 use App\Http\Controllers\Admin\LeadManagementController;
@@ -37,16 +38,19 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/leads/{lead}', [LeadManagementController::class, 'show'])->name('leads.show');
         Route::patch('/leads/{lead}/status', [LeadManagementController::class, 'updateStatus'])->name('leads.update-status');
         Route::post('/leads/{lead}/deal', [DealManagementController::class, 'createFromLead'])->name('leads.create-deal');
+        Route::post('/leads/{lead}/send-email', [CommunicationController::class, 'sendForLead'])->name('leads.send-email');
 
         Route::get('/deals', [DealManagementController::class, 'index'])->name('deals.index');
         Route::get('/deals/{deal}', [DealManagementController::class, 'show'])->name('deals.show');
         Route::patch('/deals/{deal}', [DealManagementController::class, 'update'])->name('deals.update');
         Route::post('/deals/{deal}/quotes', [QuoteController::class, 'createFromDeal'])->name('deals.create-quote');
+        Route::post('/deals/{deal}/send-email', [CommunicationController::class, 'sendForDeal'])->name('deals.send-email');
 
         Route::get('/quotes', [QuoteController::class, 'index'])->name('quotes.index');
         Route::get('/quotes/{quote}', [QuoteController::class, 'show'])->name('quotes.show');
         Route::get('/quotes/{quote}/pdf', [QuoteController::class, 'downloadPdf'])->name('quotes.pdf');
         Route::patch('/quotes/{quote}', [QuoteController::class, 'update'])->name('quotes.update');
+        Route::post('/quotes/{quote}/send-email', [CommunicationController::class, 'sendForQuote'])->name('quotes.send-email');
 
         Route::get('/users', [UserManagementController::class, 'index'])->name('users.index');
         Route::post('/users', [UserManagementController::class, 'store'])->name('users.store');

@@ -98,6 +98,44 @@
 
                     <x-ui.button type="submit">Save Quote</x-ui.button>
                 </form>
+
+                <x-ui.card class="dg-summary-card">
+                    <h3 class="dg-title-sm">Email Communication</h3>
+                    <form method="POST" action="{{ route('admin.quotes.send-email', ['quote' => $quote->id]) }}" class="dg-config-form">
+                        @csrf
+                        <div class="dg-field">
+                            <label class="dg-label" for="recipient_email">Recipient Email</label>
+                            <x-ui.input id="recipient_email" name="recipient_email" type="email" :value="$quote->deal?->lead?->email" required />
+                        </div>
+                        <div class="dg-field">
+                            <label class="dg-label" for="subject">Subject</label>
+                            <x-ui.input id="subject" name="subject" :value="'Quote '.$quote->quote_number.' from Dubai Garments'" required />
+                        </div>
+                        <div class="dg-field">
+                            <label class="dg-label" for="message">Message</label>
+                            <textarea id="message" name="message" class="dg-textarea" rows="5" required>Hello {{ $quote->deal?->lead?->customer_name ?: 'Customer' }},{{ "\n\n" }}Please find your quote {{ $quote->quote_number }} details in your customer portal. Let us know if you need revisions.{{ "\n\n" }}Regards,{{ "\n" }}Dubai Garments Sales Team</textarea>
+                        </div>
+                        <x-ui.button type="submit">Send Email</x-ui.button>
+                    </form>
+                </x-ui.card>
+
+                <x-ui.card class="dg-summary-card">
+                    <h3 class="dg-title-sm">Recent Communications</h3>
+                    @if ($communications->isNotEmpty())
+                        <div class="dg-list">
+                            @foreach ($communications as $communication)
+                                <div class="dg-list-row">
+                                    <div class="dg-list-main">
+                                        <p class="dg-list-title">{{ $communication->subject }}</p>
+                                        <p class="dg-list-meta">{{ $communication->recipient_email }} • {{ strtoupper($communication->status) }} • {{ $communication->created_at?->format('M d, Y H:i') }}</p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @else
+                        <p class="dg-muted-sm">No communication logs yet.</p>
+                    @endif
+                </x-ui.card>
             </x-ui.card>
         </div>
     </section>

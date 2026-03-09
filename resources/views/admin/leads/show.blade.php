@@ -108,6 +108,26 @@
                     @endif
                 </x-ui.card>
 
+                <x-ui.card class="dg-panel">
+                    <h2 class="dg-title-sm">Email Communication</h2>
+                    <form method="POST" action="{{ route('admin.leads.send-email', ['lead' => $lead->id]) }}" class="dg-config-form">
+                        @csrf
+                        <div class="dg-field">
+                            <label class="dg-label" for="recipient_email">Recipient Email</label>
+                            <x-ui.input id="recipient_email" name="recipient_email" type="email" :value="$lead->email" required />
+                        </div>
+                        <div class="dg-field">
+                            <label class="dg-label" for="subject">Subject</label>
+                            <x-ui.input id="subject" name="subject" :value="'Regarding your quote request '.($lead->tracking_code ?: '#'.$lead->id)" required />
+                        </div>
+                        <div class="dg-field">
+                            <label class="dg-label" for="message">Message</label>
+                            <textarea id="message" name="message" class="dg-textarea" rows="5" required>Hello {{ $lead->customer_name ?: 'Customer' }},{{ "\n\n" }}Thank you for contacting Dubai Garments. We have received your request and our sales team will follow up shortly.{{ "\n\n" }}Regards,{{ "\n" }}Dubai Garments Sales Team</textarea>
+                        </div>
+                        <x-ui.button type="submit">Send Email</x-ui.button>
+                    </form>
+                </x-ui.card>
+
                 @if (! empty($aiMeta))
                     <x-ui.card class="dg-panel">
                         <h2 class="dg-title-sm">AI Processing</h2>
@@ -128,6 +148,24 @@
                         @endif
                     </x-ui.card>
                 @endif
+
+                <x-ui.card class="dg-panel">
+                    <h2 class="dg-title-sm">Recent Communications</h2>
+                    @if ($communications->isNotEmpty())
+                        <div class="dg-list">
+                            @foreach ($communications as $communication)
+                                <div class="dg-list-row">
+                                    <div class="dg-list-main">
+                                        <p class="dg-list-title">{{ $communication->subject }}</p>
+                                        <p class="dg-list-meta">{{ $communication->recipient_email }} • {{ strtoupper($communication->status) }} • {{ $communication->created_at?->format('M d, Y H:i') }}</p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @else
+                        <p class="dg-muted-sm">No communication logs yet.</p>
+                    @endif
+                </x-ui.card>
             </div>
         </div>
     </section>

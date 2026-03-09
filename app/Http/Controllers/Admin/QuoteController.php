@@ -53,6 +53,7 @@ class QuoteController extends Controller
             'quote' => $quoteModel,
             'statuses' => self::STATUSES,
             'itemsText' => $this->itemsToText((array) ($quoteModel->items_json ?? [])),
+            'communications' => $quoteModel->communications()->latest('id')->limit(8)->get(),
         ]);
     }
 
