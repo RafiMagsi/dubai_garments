@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\ProcessLeadAI;
 use App\Models\Lead;
 use App\Support\CatalogData;
 use Illuminate\Http\Request;
@@ -83,7 +84,7 @@ class QuoteRequestController extends Controller
 
         $trackingCode = $this->generateTrackingCode();
 
-        Lead::create([
+        $lead = Lead::create([
             'source' => 'quote_request_form',
             'tracking_code' => $trackingCode,
             'customer_name' => $validated['customer_name'],
@@ -101,6 +102,8 @@ class QuoteRequestController extends Controller
                 'category' => $product['category'],
             ],
         ]);
+
+        ProcessLeadAI::dispatch($lead->id);
 
         return redirect()
             ->route('quote-requests.success', [

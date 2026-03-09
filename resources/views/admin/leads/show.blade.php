@@ -28,6 +28,27 @@
                     <p class="dg-muted-sm"><strong>Quantity:</strong> {{ $lead->quantity ? $lead->quantity.' pcs' : '-' }}</p>
                     <p class="dg-muted-sm"><strong>Required Delivery:</strong> {{ $lead->required_delivery_date?->format('M d, Y') ?: '-' }}</p>
                     <p class="dg-muted-sm"><strong>Status:</strong> <span class="dg-status-pill dg-status-pill-{{ $lead->status }}">{{ $lead->status }}</span></p>
+                    <p class="dg-muted-sm"><strong>AI Score:</strong> {{ $lead->ai_score ?? '-' }}</p>
+                    <p class="dg-muted-sm"><strong>Classification:</strong> {{ $lead->classification ?? '-' }}</p>
+
+                    @php
+                        $aiMeta = $lead->meta['ai'] ?? [];
+                    @endphp
+                    @if (! empty($aiMeta))
+                        <x-ui.card class="dg-summary-card">
+                            <h2 class="dg-title-sm">AI Processing</h2>
+                            <p class="dg-muted-sm"><strong>Provider:</strong> {{ $aiMeta['provider'] ?? '-' }}</p>
+                            <p class="dg-muted-sm"><strong>Fallback Used:</strong> {{ !empty($aiMeta['fallback_used']) ? 'Yes' : 'No' }}</p>
+                            <p class="dg-muted-sm"><strong>Processed At:</strong> {{ $aiMeta['processed_at'] ?? '-' }}</p>
+                            @if (! empty($aiMeta['extracted']) && is_array($aiMeta['extracted']))
+                                <div class="dg-summary-list">
+                                    @foreach ($aiMeta['extracted'] as $key => $value)
+                                        <p><strong>{{ ucfirst((string) $key) }}:</strong> {{ is_scalar($value) ? $value : json_encode($value) }}</p>
+                                    @endforeach
+                                </div>
+                            @endif
+                        </x-ui.card>
+                    @endif
 
                     @if ($lead->design_file_path)
                         <p class="dg-muted-sm">
