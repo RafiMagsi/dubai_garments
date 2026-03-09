@@ -1,109 +1,61 @@
-<x-layouts.storefront title="Lead #{{ $lead->id }} | Admin">
-    <main class="dg-main">
-        <section class="dg-section">
-            <div class="dg-container dg-two-col-grid">
-                <x-ui.card class="dg-info-card">
-                    <div class="dg-admin-head">
-                        <h1 class="dg-section-title">Lead Detail</h1>
-                        <div class="dg-actions-wrap">
-                            <x-ui.button variant="secondary" :href="route('admin.leads.index')">Back to Leads</x-ui.button>
-                            <x-ui.button variant="secondary" :href="route('admin.deals.index')">Deals</x-ui.button>
-                            <x-ui.button variant="secondary" :href="route('admin.users.index')">Users</x-ui.button>
-                            <form method="POST" action="{{ route('admin.logout') }}">
-                                @csrf
-                                <x-ui.button variant="secondary" type="submit">Logout</x-ui.button>
-                            </form>
-                        </div>
-                    </div>
+<x-layouts.admin title="Lead #{{ $lead->id }} | Admin">
+    @php
+        $aiMeta = $lead->meta['ai'] ?? [];
+    @endphp
 
-                    @if (session('status'))
-                        <div class="dg-alert-success">{{ session('status') }}</div>
-                    @endif
+    <section class="dg-admin-page">
+        <div class="dg-admin-page-head">
+            <div>
+                <h1 class="dg-page-title">Lead #{{ $lead->id }}</h1>
+                <p class="dg-page-subtitle">Full context, AI assessment, and pipeline actions for this lead.</p>
+            </div>
+            <div class="dg-admin-toolbar">
+                <x-ui.button variant="secondary" :href="route('admin.leads.index')">Back to Leads</x-ui.button>
+                <x-ui.button variant="secondary" :href="route('admin.deals.index')">Pipeline</x-ui.button>
+            </div>
+        </div>
 
-                    <p class="dg-muted-sm"><strong>Tracking Code:</strong> {{ $lead->tracking_code ?: '-' }}</p>
-                    <p class="dg-muted-sm"><strong>Name:</strong> {{ $lead->customer_name ?: '-' }}</p>
-                    <p class="dg-muted-sm"><strong>Company:</strong> {{ $lead->company ?: '-' }}</p>
-                    <p class="dg-muted-sm"><strong>Email:</strong> {{ $lead->email ?: '-' }}</p>
-                    <p class="dg-muted-sm"><strong>Phone:</strong> {{ $lead->phone ?: '-' }}</p>
-                    <p class="dg-muted-sm"><strong>Product:</strong> {{ $lead->product_type ?: '-' }}</p>
-                    <p class="dg-muted-sm"><strong>Quantity:</strong> {{ $lead->quantity ? $lead->quantity.' pcs' : '-' }}</p>
-                    <p class="dg-muted-sm"><strong>Required Delivery:</strong> {{ $lead->required_delivery_date?->format('M d, Y') ?: '-' }}</p>
-                    <p class="dg-muted-sm"><strong>Status:</strong> <span class="dg-status-pill dg-status-pill-{{ $lead->status }}">{{ $lead->status }}</span></p>
-                    <p class="dg-muted-sm"><strong>AI Score:</strong> {{ $lead->ai_score ?? '-' }}</p>
-                    <p class="dg-muted-sm"><strong>Classification:</strong> {{ $lead->classification ?? '-' }}</p>
+        @if (session('status'))
+            <div class="dg-alert-success">{{ session('status') }}</div>
+        @endif
+    </section>
 
-                    @php
-                        $aiMeta = $lead->meta['ai'] ?? [];
-                    @endphp
-                    @if (! empty($aiMeta))
-                        <x-ui.card class="dg-summary-card">
-                            <h2 class="dg-title-sm">AI Processing</h2>
-                            <p class="dg-muted-sm"><strong>Provider:</strong> {{ $aiMeta['provider'] ?? '-' }}</p>
-                            <p class="dg-muted-sm"><strong>Fallback Used:</strong> {{ !empty($aiMeta['fallback_used']) ? 'Yes' : 'No' }}</p>
-                            <p class="dg-muted-sm"><strong>Processed At:</strong> {{ $aiMeta['processed_at'] ?? '-' }}</p>
-                            @if (! empty($aiMeta['extracted']) && is_array($aiMeta['extracted']))
-                                <div class="dg-summary-list">
-                                    @foreach ($aiMeta['extracted'] as $key => $value)
-                                        <p><strong>{{ ucfirst((string) $key) }}:</strong> {{ is_scalar($value) ? $value : json_encode($value) }}</p>
-                                    @endforeach
-                                </div>
-                            @endif
-                        </x-ui.card>
-                    @endif
+    <section class="dg-admin-page">
+        <div class="dg-two-col-grid">
+            <x-ui.card class="dg-panel">
+                <h2 class="dg-title-sm">Lead Information</h2>
+                <div class="dg-detail-list">
+                    <div class="dg-detail-item"><span>Tracking Code</span><strong>{{ $lead->tracking_code ?: '-' }}</strong></div>
+                    <div class="dg-detail-item"><span>Name</span><strong>{{ $lead->customer_name ?: '-' }}</strong></div>
+                    <div class="dg-detail-item"><span>Company</span><strong>{{ $lead->company ?: '-' }}</strong></div>
+                    <div class="dg-detail-item"><span>Email</span><strong>{{ $lead->email ?: '-' }}</strong></div>
+                    <div class="dg-detail-item"><span>Phone</span><strong>{{ $lead->phone ?: '-' }}</strong></div>
+                    <div class="dg-detail-item"><span>Product</span><strong>{{ $lead->product_type ?: '-' }}</strong></div>
+                    <div class="dg-detail-item"><span>Quantity</span><strong>{{ $lead->quantity ? $lead->quantity.' pcs' : '-' }}</strong></div>
+                    <div class="dg-detail-item"><span>Required Delivery</span><strong>{{ $lead->required_delivery_date?->format('M d, Y') ?: '-' }}</strong></div>
+                    <div class="dg-detail-item"><span>Status</span><span class="dg-status-pill dg-status-pill-{{ $lead->status }}">{{ $lead->status }}</span></div>
+                    <div class="dg-detail-item"><span>AI Score</span><strong>{{ $lead->ai_score ?? '-' }}</strong></div>
+                    <div class="dg-detail-item"><span>Classification</span><strong>{{ $lead->classification ?? '-' }}</strong></div>
+                </div>
 
-                    @if ($lead->design_file_path)
+                @if ($lead->design_file_path)
+                    <div class="dg-summary-card">
+                        <h3 class="dg-title-sm">Uploaded Design</h3>
                         <p class="dg-muted-sm">
-                            <strong>Design File:</strong>
-                            <a class="dg-link-primary" href="{{ asset('storage/'.$lead->design_file_path) }}" target="_blank" rel="noopener noreferrer">View Upload</a>
+                            <a class="dg-link-primary" href="{{ asset('storage/'.$lead->design_file_path) }}" target="_blank" rel="noopener noreferrer">Open uploaded file</a>
                         </p>
-                    @endif
+                    </div>
+                @endif
 
-                    <x-ui.card class="dg-summary-card">
-                        <h2 class="dg-title-sm">Customer Message</h2>
-                        <p class="dg-section-copy">{{ $lead->message ?: 'No message submitted.' }}</p>
-                    </x-ui.card>
-
-                    <x-ui.card class="dg-summary-card">
-                        <h2 class="dg-title-sm">Deal</h2>
-                        @if ($lead->deal)
-                            <p class="dg-muted-sm"><strong>Deal ID:</strong> #{{ $lead->deal->id }}</p>
-                            <p class="dg-muted-sm"><strong>Stage:</strong> {{ $lead->deal->stage }}</p>
-                            <div class="dg-hero-actions">
-                                <x-ui.button :href="route('admin.deals.show', ['deal' => $lead->deal->id])">Open Deal</x-ui.button>
-                            </div>
-                        @else
-                            <p class="dg-muted-sm">No deal exists for this lead yet.</p>
-                            <form method="POST" action="{{ route('admin.leads.create-deal', ['lead' => $lead->id]) }}" class="dg-config-form">
-                                @csrf
-                                <div class="dg-config-grid">
-                                    <div class="dg-field">
-                                        <label class="dg-label" for="priority">Priority</label>
-                                        <select id="priority" name="priority" class="dg-select">
-                                            <option value="medium">medium</option>
-                                            <option value="high">high</option>
-                                            <option value="low">low</option>
-                                        </select>
-                                    </div>
-                                    <div class="dg-field">
-                                        <label class="dg-label" for="value_estimate">Value Estimate</label>
-                                        <x-ui.input id="value_estimate" name="value_estimate" type="number" min="0" step="0.01" />
-                                    </div>
-                                </div>
-                                <div class="dg-field">
-                                    <label class="dg-label" for="notes">Deal Notes</label>
-                                    <textarea id="notes" name="notes" class="dg-textarea" rows="3"></textarea>
-                                </div>
-                                <div class="dg-hero-actions">
-                                    <x-ui.button type="submit">Create Deal</x-ui.button>
-                                </div>
-                            </form>
-                        @endif
-                    </x-ui.card>
+                <x-ui.card class="dg-summary-card">
+                    <h3 class="dg-title-sm">Customer Message</h3>
+                    <p class="dg-section-copy">{{ $lead->message ?: 'No message submitted.' }}</p>
                 </x-ui.card>
+            </x-ui.card>
 
-                <x-ui.card class="dg-info-card">
-                    <h2 class="dg-section-title">Update Lead Status</h2>
-                    <p class="dg-section-copy">Move this lead through your sales pipeline stages.</p>
+            <div class="dg-process-grid">
+                <x-ui.card class="dg-panel">
+                    <h2 class="dg-title-sm">Update Lead Status</h2>
                     <form method="POST" action="{{ route('admin.leads.update-status', ['lead' => $lead->id]) }}" class="dg-config-form">
                         @csrf
                         @method('PATCH')
@@ -115,12 +67,65 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="dg-hero-actions">
-                            <x-ui.button type="submit">Update Status</x-ui.button>
-                        </div>
+                        <x-ui.button type="submit">Save Status</x-ui.button>
                     </form>
                 </x-ui.card>
+
+                <x-ui.card class="dg-panel">
+                    <h2 class="dg-title-sm">Deal Link</h2>
+                    @if ($lead->deal)
+                        <div class="dg-detail-list">
+                            <div class="dg-detail-item"><span>Deal ID</span><strong>#{{ $lead->deal->id }}</strong></div>
+                            <div class="dg-detail-item"><span>Stage</span><strong>{{ $lead->deal->stage }}</strong></div>
+                        </div>
+                        <div class="dg-hero-actions">
+                            <x-ui.button :href="route('admin.deals.show', ['deal' => $lead->deal->id])">Open Deal</x-ui.button>
+                        </div>
+                    @else
+                        <p class="dg-muted-sm">No deal exists for this lead yet.</p>
+                        <form method="POST" action="{{ route('admin.leads.create-deal', ['lead' => $lead->id]) }}" class="dg-config-form">
+                            @csrf
+                            <div class="dg-config-grid">
+                                <div class="dg-field">
+                                    <label class="dg-label" for="priority">Priority</label>
+                                    <select id="priority" name="priority" class="dg-select">
+                                        <option value="medium">medium</option>
+                                        <option value="high">high</option>
+                                        <option value="low">low</option>
+                                    </select>
+                                </div>
+                                <div class="dg-field">
+                                    <label class="dg-label" for="value_estimate">Value Estimate</label>
+                                    <x-ui.input id="value_estimate" name="value_estimate" type="number" min="0" step="0.01" />
+                                </div>
+                            </div>
+                            <div class="dg-field">
+                                <label class="dg-label" for="notes">Notes</label>
+                                <textarea id="notes" name="notes" class="dg-textarea" rows="3"></textarea>
+                            </div>
+                            <x-ui.button type="submit">Create Deal</x-ui.button>
+                        </form>
+                    @endif
+                </x-ui.card>
+
+                @if (! empty($aiMeta))
+                    <x-ui.card class="dg-panel">
+                        <h2 class="dg-title-sm">AI Processing</h2>
+                        <div class="dg-detail-list">
+                            <div class="dg-detail-item"><span>Provider</span><strong>{{ $aiMeta['provider'] ?? '-' }}</strong></div>
+                            <div class="dg-detail-item"><span>Fallback Used</span><strong>{{ !empty($aiMeta['fallback_used']) ? 'Yes' : 'No' }}</strong></div>
+                            <div class="dg-detail-item"><span>Processed At</span><strong>{{ $aiMeta['processed_at'] ?? '-' }}</strong></div>
+                        </div>
+                        @if (! empty($aiMeta['extracted']) && is_array($aiMeta['extracted']))
+                            <div class="dg-pill-stack">
+                                @foreach ($aiMeta['extracted'] as $key => $value)
+                                    <span class="dg-status-pill">{{ ucfirst((string) $key) }}: {{ is_scalar($value) ? $value : json_encode($value) }}</span>
+                                @endforeach
+                            </div>
+                        @endif
+                    </x-ui.card>
+                @endif
             </div>
-        </section>
-    </main>
-</x-layouts.storefront>
+        </div>
+    </section>
+</x-layouts.admin>

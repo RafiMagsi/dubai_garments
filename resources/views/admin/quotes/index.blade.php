@@ -1,9 +1,9 @@
-<x-layouts.admin title="Admin Leads | Dubai Garments AI">
+<x-layouts.admin title="Quotes | Admin">
     <section class="dg-admin-page">
         <div class="dg-admin-page-head">
             <div>
-                <h1 class="dg-page-title">Lead Management</h1>
-                <p class="dg-page-subtitle">Review incoming requests, qualify opportunities, and move leads into deals.</p>
+                <h1 class="dg-page-title">Quote Builder</h1>
+                <p class="dg-page-subtitle">Manage draft, sent, accepted, and expired quotations across all deals.</p>
             </div>
             <div class="dg-admin-toolbar">
                 <x-ui.button variant="secondary" :href="route('admin.dashboard')">Dashboard</x-ui.button>
@@ -12,11 +12,11 @@
         </div>
 
         <x-ui.card class="dg-panel">
-            <form method="GET" action="{{ route('admin.leads.index') }}" class="dg-form-row">
+            <form method="GET" action="{{ route('admin.quotes.index') }}" class="dg-form-row">
                 <x-ui.input
                     name="search"
                     :value="$search"
-                    placeholder="Search by name, company, email, tracking code..."
+                    placeholder="Search by quote number, customer, company, tracking code..."
                     class="dg-col-fill"
                 />
                 <select name="status" class="dg-select dg-select-md">
@@ -33,50 +33,43 @@
     <section class="dg-admin-page">
         <x-ui.card class="dg-panel">
             <div class="dg-admin-head">
-                <h2 class="dg-title-sm">Leads</h2>
-                <x-ui.badge>{{ $leads->total() }} Total</x-ui.badge>
+                <h2 class="dg-title-sm">Quotes</h2>
+                <x-ui.badge>{{ $quotes->total() }} Total</x-ui.badge>
             </div>
-
             <div class="dg-table-wrap">
                 <table class="dg-table">
                     <thead>
                         <tr>
-                            <th>Lead</th>
-                            <th>Tracking</th>
-                            <th>Product</th>
-                            <th>Quantity</th>
+                            <th>Quote #</th>
+                            <th>Deal</th>
+                            <th>Customer</th>
                             <th>Status</th>
-                            <th>Created</th>
+                            <th>Total</th>
+                            <th>Expires</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($leads as $lead)
+                        @forelse ($quotes as $quote)
                             <tr>
-                                <td>
-                                    <div>{{ $lead->customer_name ?: '-' }}</div>
-                                    <div class="dg-help">{{ $lead->email ?: '-' }}</div>
-                                </td>
-                                <td>{{ $lead->tracking_code ?: '-' }}</td>
-                                <td>{{ $lead->product_type ?: '-' }}</td>
-                                <td>{{ $lead->quantity ? $lead->quantity.' pcs' : '-' }}</td>
-                                <td><span class="dg-status-pill dg-status-pill-{{ $lead->status }}">{{ $lead->status }}</span></td>
-                                <td>{{ $lead->created_at?->format('M d, Y H:i') ?: '-' }}</td>
-                                <td>
-                                    <x-ui.button variant="secondary" :href="route('admin.leads.show', ['lead' => $lead->id])">View</x-ui.button>
-                                </td>
+                                <td>{{ $quote->quote_number ?: '-' }}</td>
+                                <td>#{{ $quote->deal_id ?: '-' }}</td>
+                                <td>{{ $quote->deal?->lead?->customer_name ?: '-' }}</td>
+                                <td><span class="dg-status-pill">{{ $quote->status }}</span></td>
+                                <td>{{ $quote->currency }} {{ number_format((float) $quote->total_price, 2) }}</td>
+                                <td>{{ $quote->expires_at?->format('M d, Y') ?: '-' }}</td>
+                                <td><x-ui.button variant="secondary" :href="route('admin.quotes.show', ['quote' => $quote->id])">Open</x-ui.button></td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7">No leads found.</td>
+                                <td colspan="7">No quotes found.</td>
                             </tr>
                         @endforelse
                     </tbody>
                 </table>
             </div>
-
             <div class="dg-hero-actions">
-                {{ $leads->links() }}
+                {{ $quotes->links() }}
             </div>
         </x-ui.card>
     </section>

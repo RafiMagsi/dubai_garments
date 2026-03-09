@@ -371,6 +371,12 @@
         gap: 1rem;
     }
 
+    .dg-side-stack {
+        display: grid;
+        gap: 1rem;
+        align-content: start;
+    }
+
     .dg-info-card {
         padding: 1.5rem;
     }
@@ -683,31 +689,190 @@
         gap: 0.75rem;
     }
 
+    .dg-admin-page {
+        padding: 1.25rem;
+    }
+
+    .dg-admin-page-head {
+        margin-bottom: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .dg-page-title {
+        font-size: clamp(1.35rem, 2vw, 1.9rem);
+        line-height: 1.2;
+        font-weight: 700;
+        color: #0f172a;
+        letter-spacing: -0.02em;
+    }
+
+    .dg-page-subtitle {
+        margin-top: 0.2rem;
+        font-size: 0.9rem;
+        color: #475569;
+    }
+
+    .dg-admin-toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .dg-kpi-grid {
+        display: grid;
+        gap: 0.9rem;
+    }
+
+    .dg-kpi-card {
+        padding: 1rem;
+        background:
+            linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85)),
+            radial-gradient(circle at 20% 0%, rgba(59, 130, 246, 0.12), transparent 60%);
+    }
+
+    .dg-kpi-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: #64748b;
+    }
+
+    .dg-kpi-value {
+        margin-top: 0.35rem;
+        font-size: 1.6rem;
+        line-height: 1;
+        font-weight: 700;
+        color: #0f172a;
+    }
+
+    .dg-kpi-meta {
+        margin-top: 0.35rem;
+        font-size: 0.8rem;
+        color: #475569;
+    }
+
+    .dg-analytics-grid {
+        display: grid;
+        gap: 1rem;
+    }
+
+    .dg-chart-card {
+        padding: 1rem;
+    }
+
+    .dg-stat-bars {
+        margin-top: 0.75rem;
+        display: grid;
+        gap: 0.6rem;
+    }
+
+    .dg-stat-row {
+        display: grid;
+        grid-template-columns: 110px 1fr auto;
+        gap: 0.75rem;
+        align-items: center;
+        font-size: 0.82rem;
+        color: #334155;
+    }
+
+    .dg-progress {
+        width: 100%;
+        height: 0.5rem;
+        border: 0;
+        border-radius: 9999px;
+        overflow: hidden;
+        background-color: #e2e8f0;
+    }
+
+    .dg-progress::-webkit-progress-bar {
+        background-color: #e2e8f0;
+        border-radius: 9999px;
+    }
+
+    .dg-progress::-webkit-progress-value {
+        background: linear-gradient(90deg, #3b82f6, #2563eb);
+        border-radius: 9999px;
+    }
+
+    .dg-progress::-moz-progress-bar {
+        background: linear-gradient(90deg, #3b82f6, #2563eb);
+        border-radius: 9999px;
+    }
+
+    .dg-list {
+        margin-top: 0.75rem;
+        display: grid;
+        gap: 0.65rem;
+    }
+
+    .dg-list-row {
+        display: flex;
+        gap: 0.65rem;
+        justify-content: space-between;
+        align-items: center;
+        border: 1px solid #e2e8f0;
+        background-color: #f8fafc;
+        border-radius: 0.65rem;
+        padding: 0.65rem 0.75rem;
+    }
+
+    .dg-list-main {
+        min-width: 0;
+        display: grid;
+        gap: 0.15rem;
+    }
+
+    .dg-list-title {
+        font-size: 0.86rem;
+        font-weight: 600;
+        color: #0f172a;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .dg-list-meta {
+        font-size: 0.76rem;
+        color: #64748b;
+    }
+
     .dg-table-wrap {
         overflow-x: auto;
+        border: 1px solid #e2e8f0;
+        border-radius: 0.9rem;
+        background-color: #fff;
     }
 
     .dg-table {
         width: 100%;
         border-collapse: collapse;
-        font-size: 0.875rem;
+        font-size: 0.85rem;
     }
 
     .dg-table th,
     .dg-table td {
         border-bottom: 1px solid #e2e8f0;
-        padding: 0.75rem;
+        padding: 0.8rem 0.75rem;
         text-align: left;
         color: #334155;
         white-space: nowrap;
     }
 
     .dg-table th {
-        font-size: 0.75rem;
-        letter-spacing: 0.06em;
+        font-size: 0.72rem;
+        letter-spacing: 0.05em;
         text-transform: uppercase;
         color: #64748b;
         background-color: #f8fafc;
+    }
+
+    .dg-table tbody tr:hover {
+        background-color: #f8fbff;
     }
 
     .dg-status-pill {
@@ -750,6 +915,10 @@
         align-items: center;
     }
 
+    .dg-panel {
+        padding: 1rem;
+    }
+
     .dg-select-md {
         min-width: 180px;
     }
@@ -761,6 +930,9 @@
 
     .dg-pipeline-column {
         padding: 1rem;
+        background:
+            linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.88)),
+            radial-gradient(circle at 100% 0%, rgba(148, 163, 184, 0.14), transparent 70%);
     }
 
     .dg-pipeline-cards {
@@ -768,7 +940,207 @@
         gap: 0.75rem;
     }
 
+    .dg-admin-shell {
+        display: grid;
+        min-height: 100vh;
+        grid-template-columns: 290px 1fr;
+        background:
+            linear-gradient(115deg, rgba(191, 219, 254, 0.2), rgba(226, 232, 240, 0.2)),
+            #f8fafc;
+    }
+
+    .dg-admin-sidebar {
+        border-right: 1px solid #dbe3f1;
+        background:
+            radial-gradient(circle at 20% 0%, rgba(59, 130, 246, 0.1), transparent 42%),
+            #ffffff;
+        padding: 1.25rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        position: sticky;
+        top: 0;
+        height: 100vh;
+    }
+
+    .dg-admin-brand {
+        border: 1px solid #dbeafe;
+        border-radius: 0.95rem;
+        padding: 0.9rem;
+        background: linear-gradient(180deg, #eff6ff, #ffffff);
+    }
+
+    .dg-admin-brand-copy {
+        margin-top: 0.45rem;
+        font-size: 0.78rem;
+        color: #64748b;
+        line-height: 1.5;
+    }
+
+    .dg-admin-nav {
+        display: grid;
+        gap: 0.35rem;
+    }
+
+    .dg-admin-link {
+        border: 1px solid #e2e8f0;
+        border-radius: 0.75rem;
+        padding: 0.65rem 0.8rem;
+        color: #334155;
+        background-color: #fff;
+        display: grid;
+        gap: 0.1rem;
+    }
+
+    .dg-admin-link span {
+        font-size: 0.88rem;
+        font-weight: 700;
+        line-height: 1.1;
+    }
+
+    .dg-admin-link small {
+        font-size: 0.72rem;
+        color: #64748b;
+    }
+
+    .dg-admin-link.is-active {
+        border-color: #93c5fd;
+        background: linear-gradient(180deg, #dbeafe, #eff6ff);
+    }
+
+    .dg-admin-link.is-active span {
+        color: #1d4ed8;
+    }
+
+    .dg-admin-link.is-active small {
+        color: #1e40af;
+    }
+
+    .dg-admin-footer {
+        margin-top: auto;
+        display: grid;
+        gap: 0.5rem;
+    }
+
+    .dg-admin-main {
+        padding: 1rem;
+        display: grid;
+        gap: 1rem;
+        align-content: start;
+    }
+
+    .dg-admin-topbar {
+        border: 1px solid #dbe3f1;
+        border-radius: 1rem;
+        background:
+            linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.86)),
+            radial-gradient(circle at 100% 0%, rgba(59, 130, 246, 0.1), transparent 55%);
+        padding: 0.85rem 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+    }
+
+    .dg-admin-topbar-label {
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #64748b;
+        font-weight: 700;
+    }
+
+    .dg-admin-topbar-title {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #0f172a;
+        margin-top: 0.2rem;
+    }
+
+    .dg-admin-user-pill {
+        border-radius: 9999px;
+        background-color: #eef2ff;
+        border: 1px solid #c7d2fe;
+        padding: 0.25rem 0.7rem 0.25rem 0.3rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+    }
+
+    .dg-admin-user-pill p {
+        font-size: 0.82rem;
+        color: #0f172a;
+        font-weight: 600;
+    }
+
+    .dg-admin-user-pill small {
+        display: block;
+        font-size: 0.7rem;
+        color: #475569;
+        line-height: 1.1;
+        text-transform: uppercase;
+    }
+
+    .dg-admin-user-avatar {
+        width: 1.7rem;
+        height: 1.7rem;
+        border-radius: 9999px;
+        background-color: #2563eb;
+        color: #fff;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.78rem;
+        font-weight: 700;
+    }
+
+    .dg-detail-list {
+        display: grid;
+        gap: 0.5rem;
+    }
+
+    .dg-detail-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.7rem;
+        padding: 0.55rem 0.65rem;
+        border: 1px solid #e2e8f0;
+        border-radius: 0.65rem;
+        background-color: #f8fafc;
+        font-size: 0.84rem;
+        color: #334155;
+    }
+
+    .dg-detail-item strong {
+        color: #0f172a;
+        font-weight: 600;
+    }
+
+    .dg-pill-stack {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+    }
+
+    .dg-auth-wrap {
+        width: min(680px, 100%);
+        margin-inline: auto;
+    }
+
+    .dg-auth-card {
+        padding: 1.25rem;
+        background:
+            linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(255, 255, 255, 0.9)),
+            radial-gradient(circle at 100% 0%, rgba(59, 130, 246, 0.12), transparent 58%);
+    }
+
     @media (min-width: 640px) {
+        .dg-kpi-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
         .dg-category-grid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
         }
@@ -807,6 +1179,14 @@
     }
 
     @media (min-width: 1024px) {
+        .dg-kpi-grid {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .dg-analytics-grid {
+            grid-template-columns: 1.2fr 1fr;
+        }
+
         .dg-hero-grid {
             grid-template-columns: 1.2fr 0.8fr;
         }
@@ -825,6 +1205,23 @@
 
         .dg-pipeline-grid {
             grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+    }
+
+    @media (max-width: 1023px) {
+        .dg-admin-shell {
+            grid-template-columns: 1fr;
+        }
+
+        .dg-admin-sidebar {
+            position: static;
+            height: auto;
+            border-right: 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .dg-admin-main {
+            padding-top: 0.25rem;
         }
     }
 

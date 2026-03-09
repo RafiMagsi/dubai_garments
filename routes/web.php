@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DealManagementController;
 use App\Http\Controllers\Admin\LeadManagementController;
+use App\Http\Controllers\Admin\QuoteController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\CustomerPortalController;
 use App\Http\Controllers\ProductController;
@@ -28,6 +30,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     });
 
     Route::middleware(['auth', 'admin'])->group(function () {
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
         Route::get('/leads', [LeadManagementController::class, 'index'])->name('leads.index');
@@ -38,6 +41,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/deals', [DealManagementController::class, 'index'])->name('deals.index');
         Route::get('/deals/{deal}', [DealManagementController::class, 'show'])->name('deals.show');
         Route::patch('/deals/{deal}', [DealManagementController::class, 'update'])->name('deals.update');
+        Route::post('/deals/{deal}/quotes', [QuoteController::class, 'createFromDeal'])->name('deals.create-quote');
+
+        Route::get('/quotes', [QuoteController::class, 'index'])->name('quotes.index');
+        Route::get('/quotes/{quote}', [QuoteController::class, 'show'])->name('quotes.show');
+        Route::patch('/quotes/{quote}', [QuoteController::class, 'update'])->name('quotes.update');
 
         Route::get('/users', [UserManagementController::class, 'index'])->name('users.index');
         Route::post('/users', [UserManagementController::class, 'store'])->name('users.store');

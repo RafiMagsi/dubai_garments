@@ -23,6 +23,8 @@ $app = Application::configure(basePath: $basePath)
         $middleware->alias([
             'admin' => EnsureAdmin::class,
         ]);
+
+        $middleware->redirectGuestsTo(fn () => route('admin.login'));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

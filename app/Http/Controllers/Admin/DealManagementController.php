@@ -60,7 +60,7 @@ class DealManagementController extends Controller
 
     public function show(int $deal): View
     {
-        $dealModel = Deal::query()->with(['lead', 'assignedUser'])->findOrFail($deal);
+        $dealModel = Deal::query()->with(['lead', 'assignedUser', 'quotes'])->findOrFail($deal);
 
         return view('admin.deals.show', [
             'deal' => $dealModel,
