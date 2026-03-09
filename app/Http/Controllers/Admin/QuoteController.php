@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Deal;
 use App\Models\Quote;
+use App\Services\FollowupAutomationService;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -54,6 +55,7 @@ class QuoteController extends Controller
             'statuses' => self::STATUSES,
             'itemsText' => $this->itemsToText((array) ($quoteModel->items_json ?? [])),
             'communications' => $quoteModel->communications()->latest('id')->limit(8)->get(),
+            'followups' => $quoteModel->followups()->latest('id')->limit(10)->get(),
         ]);
     }
 
@@ -115,6 +117,7 @@ class QuoteController extends Controller
     public function update(Request $request, int $quote): RedirectResponse
     {
         $quoteModel = Quote::query()->with('deal.lead')->findOrFail($quote);
+        $previousStatus = $quoteModel->status;
         $parsed = $this->parseItemsText((string) $request->input('items_text', ''));
 
         $validated = $request->validate([
@@ -141,6 +144,11 @@ class QuoteController extends Controller
             'total_price' => $total,
             'sent_at' => $validated['status'] === 'SENT' && ! $quoteModel->sent_at ? now() : $quoteModel->sent_at,
         ]);
+
+        if ($previousStatus !== 'SENT' && $validated['status'] === 'SENT') {
+            app(FollowupAutomationService::class)
+                ->scheduleQuoteSentFollowups($quoteModel->fresh(['deal.lead']));
+        }
 
         return redirect()
             ->route('admin.quotes.show', ['quote' => $quoteModel->id])

@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CommunicationController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DealManagementController;
+use App\Http\Controllers\Admin\FollowupManagementController;
 use App\Http\Controllers\Admin\LeadManagementController;
 use App\Http\Controllers\Admin\QuoteController;
 use App\Http\Controllers\Admin\UserManagementController;
@@ -51,6 +52,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/quotes/{quote}/pdf', [QuoteController::class, 'downloadPdf'])->name('quotes.pdf');
         Route::patch('/quotes/{quote}', [QuoteController::class, 'update'])->name('quotes.update');
         Route::post('/quotes/{quote}/send-email', [CommunicationController::class, 'sendForQuote'])->name('quotes.send-email');
+        Route::get('/followups', [FollowupManagementController::class, 'index'])->name('followups.index');
 
         Route::get('/users', [UserManagementController::class, 'index'])->name('users.index');
         Route::post('/users', [UserManagementController::class, 'store'])->name('users.store');

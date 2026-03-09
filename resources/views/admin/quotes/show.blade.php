@@ -136,6 +136,27 @@
                         <p class="dg-muted-sm">No communication logs yet.</p>
                     @endif
                 </x-ui.card>
+
+                <x-ui.card class="dg-summary-card">
+                    <h3 class="dg-title-sm">Follow-up Automation Queue</h3>
+                    @if ($followups->isNotEmpty())
+                        <div class="dg-list">
+                            @foreach ($followups as $followup)
+                                <div class="dg-list-row">
+                                    <div class="dg-list-main">
+                                        <p class="dg-list-title">{{ $followup->step ?: 'follow-up' }}</p>
+                                        <p class="dg-list-meta">
+                                            {{ strtoupper($followup->status) }} •
+                                            {{ $followup->next_run?->format('M d, Y H:i') ?: '-' }}
+                                        </p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @else
+                        <p class="dg-muted-sm">No follow-ups scheduled yet. Set quote status to SENT to schedule sequence.</p>
+                    @endif
+                </x-ui.card>
             </x-ui.card>
         </div>
     </section>

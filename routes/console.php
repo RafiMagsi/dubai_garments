@@ -1,9 +1,11 @@
 <?php
 
 use App\Models\User;
+use App\Services\FollowupAutomationService;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Schedule;
 use Illuminate\Support\Facades\Validator;
 
 Artisan::command('inspire', function () {
@@ -50,3 +52,19 @@ Artisan::command('admin:create {--name=} {--email=} {--password=}', function () 
 
     return self::SUCCESS;
 })->purpose('Create an admin user from CLI (safe first-login setup)');
+
+Artisan::command('followups:run {--limit=100}', function () {
+    $limit = max(1, (int) $this->option('limit'));
+
+    $stats = app(FollowupAutomationService::class)->runDueFollowups($limit);
+
+    $this->info('Follow-up automation executed.');
+    $this->line('Processed: '.$stats['processed']);
+    $this->line('Sent: '.$stats['sent']);
+    $this->line('Failed: '.$stats['failed']);
+    $this->line('Skipped: '.$stats['skipped']);
+
+    return self::SUCCESS;
+})->purpose('Run due follow-up emails for sent quotes');
+
+Schedule::command('followups:run --limit=100')->hourly();

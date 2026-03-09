@@ -44,4 +44,9 @@ class Quote extends Model
     {
         return $this->hasMany(Communication::class);
     }
+
+    public function followups(): HasMany
+    {
+        return $this->hasMany(Followup::class);
+    }
 }

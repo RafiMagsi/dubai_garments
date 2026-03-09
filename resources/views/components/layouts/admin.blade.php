@@ -40,6 +40,10 @@
                             <span>Quotes</span>
                             <small>Pricing</small>
                         </a>
+                        <a href="{{ route('admin.followups.index') }}" class="dg-admin-link {{ request()->routeIs('admin.followups.*') ? 'is-active' : '' }}">
+                            <span>Follow-ups</span>
+                            <small>Automation</small>
+                        </a>
                         <a href="{{ route('admin.users.index') }}" class="dg-admin-link {{ request()->routeIs('admin.users.*') ? 'is-active' : '' }}">
                             <span>Users</span>
                             <small>Access</small>
