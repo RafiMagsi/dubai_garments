@@ -18,15 +18,35 @@ class CatalogData
 
     public function products(): array
     {
+        $defaultConfiguration = [
+            'colors' => ['Black', 'Navy', 'White', 'Grey', 'Maroon'],
+            'sizes' => ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
+            'print_methods' => ['Screen Print', 'Embroidery', 'DTF Print'],
+            'delivery_options' => [
+                ['value' => 'standard', 'label' => 'Standard Production'],
+                ['value' => 'priority', 'label' => 'Priority Production'],
+            ],
+        ];
+
         return [
-            ['slug' => 'premium-cotton-corporate-t-shirt', 'name' => 'Premium Cotton Corporate T-Shirt', 'category' => 'T-Shirts', 'category_slug' => 't-shirts', 'moq' => 100, 'lead_time' => '7-10 days', 'fabric' => '180 GSM Cotton', 'customization' => 'Screen print / Embroidery'],
-            ['slug' => 'fleece-event-hoodie', 'name' => 'Fleece Event Hoodie', 'category' => 'Hoodies', 'category_slug' => 'hoodies', 'moq' => 80, 'lead_time' => '10-14 days', 'fabric' => '300 GSM Fleece', 'customization' => 'DTF print / Embroidery'],
-            ['slug' => 'performance-sports-jersey', 'name' => 'Performance Sports Jersey', 'category' => 'Jerseys', 'category_slug' => 'jerseys', 'moq' => 50, 'lead_time' => '7-12 days', 'fabric' => 'Poly Dry-Fit', 'customization' => 'Sublimation'],
-            ['slug' => 'structured-promotional-cap', 'name' => 'Structured Promotional Cap', 'category' => 'Caps', 'category_slug' => 'caps', 'moq' => 150, 'lead_time' => '6-9 days', 'fabric' => 'Brushed Cotton', 'customization' => 'Embroidery / Patch'],
-            ['slug' => 'retail-staff-polo-uniform', 'name' => 'Retail Staff Polo Uniform', 'category' => 'Uniforms', 'category_slug' => 'uniforms', 'moq' => 120, 'lead_time' => '8-12 days', 'fabric' => 'Pique Knit', 'customization' => 'Logo Embroidery'],
-            ['slug' => 'executive-softshell-jacket', 'name' => 'Executive Softshell Jacket', 'category' => 'Jackets', 'category_slug' => 'jackets', 'moq' => 60, 'lead_time' => '12-16 days', 'fabric' => 'Softshell', 'customization' => 'Embroidery'],
-            ['slug' => 'event-volunteer-t-shirt', 'name' => 'Event Volunteer T-Shirt', 'category' => 'T-Shirts', 'category_slug' => 't-shirts', 'moq' => 120, 'lead_time' => '5-8 days', 'fabric' => '160 GSM Cotton', 'customization' => 'Screen print'],
-            ['slug' => 'college-club-hoodie', 'name' => 'College Club Hoodie', 'category' => 'Hoodies', 'category_slug' => 'hoodies', 'moq' => 70, 'lead_time' => '9-13 days', 'fabric' => 'Fleece Blend', 'customization' => 'DTF / Puff print'],
+            ['slug' => 'premium-cotton-corporate-t-shirt', 'name' => 'Premium Cotton Corporate T-Shirt', 'category' => 'T-Shirts', 'category_slug' => 't-shirts', 'moq' => 100, 'lead_time' => '7-10 days', 'fabric' => '180 GSM Cotton', 'customization' => 'Screen print / Embroidery', 'configuration' => $defaultConfiguration],
+            ['slug' => 'fleece-event-hoodie', 'name' => 'Fleece Event Hoodie', 'category' => 'Hoodies', 'category_slug' => 'hoodies', 'moq' => 80, 'lead_time' => '10-14 days', 'fabric' => '300 GSM Fleece', 'customization' => 'DTF print / Embroidery', 'configuration' => $defaultConfiguration],
+            ['slug' => 'performance-sports-jersey', 'name' => 'Performance Sports Jersey', 'category' => 'Jerseys', 'category_slug' => 'jerseys', 'moq' => 50, 'lead_time' => '7-12 days', 'fabric' => 'Poly Dry-Fit', 'customization' => 'Sublimation', 'configuration' => [
+                'colors' => ['Black', 'Royal Blue', 'Red', 'White', 'Green'],
+                'sizes' => ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
+                'print_methods' => ['Sublimation', 'Heat Transfer'],
+                'delivery_options' => $defaultConfiguration['delivery_options'],
+            ]],
+            ['slug' => 'structured-promotional-cap', 'name' => 'Structured Promotional Cap', 'category' => 'Caps', 'category_slug' => 'caps', 'moq' => 150, 'lead_time' => '6-9 days', 'fabric' => 'Brushed Cotton', 'customization' => 'Embroidery / Patch', 'configuration' => [
+                'colors' => ['Black', 'Navy', 'Beige', 'White'],
+                'sizes' => ['Standard'],
+                'print_methods' => ['Embroidery', 'Patch'],
+                'delivery_options' => $defaultConfiguration['delivery_options'],
+            ]],
+            ['slug' => 'retail-staff-polo-uniform', 'name' => 'Retail Staff Polo Uniform', 'category' => 'Uniforms', 'category_slug' => 'uniforms', 'moq' => 120, 'lead_time' => '8-12 days', 'fabric' => 'Pique Knit', 'customization' => 'Logo Embroidery', 'configuration' => $defaultConfiguration],
+            ['slug' => 'executive-softshell-jacket', 'name' => 'Executive Softshell Jacket', 'category' => 'Jackets', 'category_slug' => 'jackets', 'moq' => 60, 'lead_time' => '12-16 days', 'fabric' => 'Softshell', 'customization' => 'Embroidery', 'configuration' => $defaultConfiguration],
+            ['slug' => 'event-volunteer-t-shirt', 'name' => 'Event Volunteer T-Shirt', 'category' => 'T-Shirts', 'category_slug' => 't-shirts', 'moq' => 120, 'lead_time' => '5-8 days', 'fabric' => '160 GSM Cotton', 'customization' => 'Screen print', 'configuration' => $defaultConfiguration],
+            ['slug' => 'college-club-hoodie', 'name' => 'College Club Hoodie', 'category' => 'Hoodies', 'category_slug' => 'hoodies', 'moq' => 70, 'lead_time' => '9-13 days', 'fabric' => 'Fleece Blend', 'customization' => 'DTF / Puff print', 'configuration' => $defaultConfiguration],
         ];
     }
 

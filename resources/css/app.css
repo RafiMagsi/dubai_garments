@@ -446,6 +446,128 @@
         overflow: hidden;
     }
 
+    .dg-config-card {
+        padding: 1.5rem;
+    }
+
+    .dg-config-form {
+        margin-top: 1rem;
+        display: grid;
+        gap: 1rem;
+    }
+
+    .dg-config-grid {
+        display: grid;
+        gap: 1rem;
+    }
+
+    .dg-field {
+        display: grid;
+        gap: 0.5rem;
+    }
+
+    .dg-label {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #0f172a;
+    }
+
+    .dg-select {
+        width: 100%;
+        border-radius: 9999px;
+        border: 1px solid #cbd5e1;
+        background-color: #fff;
+        padding: 0.7rem 1rem;
+        font-size: 0.9rem;
+        color: #0f172a;
+    }
+
+    .dg-select:focus {
+        outline: none;
+        border-color: var(--color-brand-500);
+        box-shadow: 0 0 0 3px rgba(43, 92, 255, 0.12);
+    }
+
+    .dg-textarea {
+        width: 100%;
+        border-radius: 0.9rem;
+        border: 1px solid #cbd5e1;
+        background-color: #fff;
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+        color: #0f172a;
+        resize: vertical;
+    }
+
+    .dg-textarea:focus {
+        outline: none;
+        border-color: var(--color-brand-500);
+        box-shadow: 0 0 0 3px rgba(43, 92, 255, 0.12);
+    }
+
+    .dg-help {
+        font-size: 0.75rem;
+        color: #64748b;
+    }
+
+    .dg-checkbox-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .dg-checkbox-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        border: 1px solid #cbd5e1;
+        border-radius: 9999px;
+        padding: 0.35rem 0.8rem;
+        font-size: 0.85rem;
+        color: #334155;
+        background-color: #fff;
+    }
+
+    .dg-alert-success {
+        margin-top: 1rem;
+        border-radius: 0.75rem;
+        border: 1px solid #bbf7d0;
+        background-color: #f0fdf4;
+        color: #166534;
+        padding: 0.75rem 0.9rem;
+        font-size: 0.875rem;
+    }
+
+    .dg-alert-error {
+        margin-top: 1rem;
+        border-radius: 0.75rem;
+        border: 1px solid #fecaca;
+        background-color: #fef2f2;
+        color: #991b1b;
+        padding: 0.75rem 0.9rem;
+        font-size: 0.875rem;
+    }
+
+    .dg-error-list {
+        display: grid;
+        gap: 0.25rem;
+        list-style: disc;
+        padding-left: 1rem;
+    }
+
+    .dg-summary-card {
+        margin-top: 1rem;
+        padding: 1rem;
+    }
+
+    .dg-summary-list {
+        margin-top: 0.5rem;
+        display: grid;
+        gap: 0.4rem;
+        font-size: 0.875rem;
+        color: #334155;
+    }
+
     .dg-cta-grid {
         display: flex;
         flex-direction: column;
@@ -519,6 +641,10 @@
 
         .dg-cta-card {
             padding: 2rem;
+        }
+
+        .dg-config-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
         }
     }
 
