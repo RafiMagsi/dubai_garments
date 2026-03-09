@@ -396,6 +396,22 @@
         font-weight: 500;
     }
 
+    .dg-chip-active {
+        background-color: #dbeafe;
+        color: #1e40af;
+    }
+
+    .dg-filter-card {
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .dg-filter-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
     .dg-testimonials {
         margin-top: 1rem;
         display: grid;
@@ -419,6 +435,15 @@
 
     .dg-cta-card {
         padding: 1.5rem;
+    }
+
+    .dg-detail-grid {
+        display: grid;
+        gap: 1.5rem;
+    }
+
+    .dg-detail-media {
+        overflow: hidden;
     }
 
     .dg-cta-grid {
@@ -524,6 +549,10 @@
 
         .dg-two-col-grid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .dg-detail-grid {
+            grid-template-columns: 1fr 1fr;
         }
     }
 

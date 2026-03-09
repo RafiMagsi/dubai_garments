@@ -1,40 +1,5 @@
 <x-layouts.storefront title="Dubai Garments AI | Bulk Garment Storefront">
-    <div class="dg-topbar">
-        <div class="dg-container dg-topbar-inner">
-            <p>Bulk Orders Support: +92 300 0000000</p>
-            <p>Email: sales@dubaigarments.ai | Delivery: UAE, KSA, Pakistan</p>
-        </div>
-    </div>
-
-    <header class="dg-header">
-        <div class="dg-container">
-            <x-ui.card class="dg-header-inner">
-                <div>
-                    <p class="dg-brand-subtitle">Dubai Garments</p>
-                    <p class="dg-brand-title">Bulk Garment Store</p>
-                </div>
-
-                <div class="dg-search-wrap">
-                    <x-ui.input type="search" placeholder="Search products, categories, fabrics..." />
-                </div>
-
-                <div class="dg-header-actions">
-                    <x-ui.button variant="secondary" href="#">Customer Portal</x-ui.button>
-                    <x-ui.button href="#">Request Bulk Quote</x-ui.button>
-                </div>
-            </x-ui.card>
-
-            <nav class="dg-card dg-nav">
-                <div class="dg-nav-inner">
-                    @foreach ($categories as $category)
-                        <a href="#" class="dg-nav-link">{{ $category['name'] }}</a>
-                    @endforeach
-                    <a href="#" class="dg-nav-link">All Products</a>
-                    <a href="#" class="dg-nav-link">Contact</a>
-                </div>
-            </nav>
-        </div>
-    </header>
+    <x-store.header :categories="$categories" search="" />
 
     <main class="dg-main">
         <section class="dg-section">
@@ -48,7 +13,7 @@
                     </p>
                     <div class="dg-hero-actions">
                         <x-ui.button href="#">Start Quote Request</x-ui.button>
-                        <x-ui.button variant="secondary" href="#">Browse Catalog</x-ui.button>
+                        <x-ui.button variant="secondary" :href="route('products.index')">Browse Catalog</x-ui.button>
                     </div>
                 </x-ui.card>
 
@@ -73,7 +38,7 @@
                 />
                 <div class="dg-category-grid">
                     @foreach ($categories as $category)
-                        <x-store.category-card :name="$category['name']" :description="$category['description']" />
+                        <x-store.category-card :name="$category['name']" :description="$category['description']" :slug="$category['slug']" />
                     @endforeach
                 </div>
             </div>
@@ -86,7 +51,7 @@
                     subtitle="Production-ready garments with clear MOQs, lead times, and customization options."
                 >
                     <x-slot:action>
-                        <x-ui.button variant="secondary" href="#">View All Products</x-ui.button>
+                        <x-ui.button variant="secondary" :href="route('products.index')">View All Products</x-ui.button>
                     </x-slot:action>
                 </x-ui.section-header>
 
@@ -162,33 +127,5 @@
         </section>
     </main>
 
-    <footer class="dg-footer">
-        <div class="dg-container dg-footer-grid">
-            <div>
-                <h3 class="dg-title-sm">Dubai Garments</h3>
-                <p class="dg-muted-sm">Bulk custom apparel for businesses, events, and institutions.</p>
-            </div>
-            <div>
-                <h4 class="dg-footer-heading">Store</h4>
-                <ul class="dg-footer-list">
-                    <li><a href="#">Products</a></li>
-                    <li><a href="#">Request Quote</a></li>
-                    <li><a href="#">Customer Portal</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="dg-footer-heading">Company</h4>
-                <ul class="dg-footer-list">
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Industries</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="dg-footer-heading">Contact</h4>
-                <p class="dg-muted-sm">sales@dubaigarments.ai</p>
-                <p class="dg-muted-sm">+92 300 0000000</p>
-            </div>
-        </div>
-    </footer>
+    <x-store.footer />
 </x-layouts.storefront>

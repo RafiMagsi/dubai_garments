@@ -2,64 +2,36 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
+use App\Support\CatalogData;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request, CatalogData $catalogData)
     {
-        //
+        $categories = $catalogData->categories();
+        $activeCategory = (string) $request->query('category', '');
+        $search = (string) $request->query('search', '');
+
+        $products = $catalogData->filterProducts($activeCategory ?: null, $search ?: null);
+
+        return view('storefront.products.index', [
+            'categories' => $categories,
+            'products' => $products,
+            'activeCategory' => $activeCategory,
+            'search' => $search,
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function show(string $slug, CatalogData $catalogData)
     {
-        //
-    }
+        $product = $catalogData->findProduct($slug);
+        abort_if(! $product, 404);
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Product $product)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Product $product)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Product $product)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Product $product)
-    {
-        //
+        return view('storefront.products.show', [
+            'product' => $product,
+            'categories' => $catalogData->categories(),
+            'relatedProducts' => $catalogData->relatedProducts($product['category_slug'], $slug),
+        ]);
     }
 }
