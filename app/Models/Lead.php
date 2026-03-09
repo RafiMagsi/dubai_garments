@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Lead extends Model
 {
@@ -31,5 +32,10 @@ class Lead extends Model
             'required_delivery_date' => 'date',
             'meta' => 'array',
         ];
+    }
+
+    public function deal(): HasOne
+    {
+        return $this->hasOne(Deal::class);
     }
 }

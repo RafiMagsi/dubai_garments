@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\DealManagementController;
 use App\Http\Controllers\Admin\LeadManagementController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\CustomerPortalController;
@@ -32,6 +33,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/leads', [LeadManagementController::class, 'index'])->name('leads.index');
         Route::get('/leads/{lead}', [LeadManagementController::class, 'show'])->name('leads.show');
         Route::patch('/leads/{lead}/status', [LeadManagementController::class, 'updateStatus'])->name('leads.update-status');
+        Route::post('/leads/{lead}/deal', [DealManagementController::class, 'createFromLead'])->name('leads.create-deal');
+
+        Route::get('/deals', [DealManagementController::class, 'index'])->name('deals.index');
+        Route::get('/deals/{deal}', [DealManagementController::class, 'show'])->name('deals.show');
+        Route::patch('/deals/{deal}', [DealManagementController::class, 'update'])->name('deals.update');
 
         Route::get('/users', [UserManagementController::class, 'index'])->name('users.index');
         Route::post('/users', [UserManagementController::class, 'store'])->name('users.store');

@@ -7,6 +7,7 @@
                         <h1 class="dg-section-title">Lead Detail</h1>
                         <div class="dg-actions-wrap">
                             <x-ui.button variant="secondary" :href="route('admin.leads.index')">Back to Leads</x-ui.button>
+                            <x-ui.button variant="secondary" :href="route('admin.deals.index')">Deals</x-ui.button>
                             <x-ui.button variant="secondary" :href="route('admin.users.index')">Users</x-ui.button>
                             <form method="POST" action="{{ route('admin.logout') }}">
                                 @csrf
@@ -60,6 +61,43 @@
                     <x-ui.card class="dg-summary-card">
                         <h2 class="dg-title-sm">Customer Message</h2>
                         <p class="dg-section-copy">{{ $lead->message ?: 'No message submitted.' }}</p>
+                    </x-ui.card>
+
+                    <x-ui.card class="dg-summary-card">
+                        <h2 class="dg-title-sm">Deal</h2>
+                        @if ($lead->deal)
+                            <p class="dg-muted-sm"><strong>Deal ID:</strong> #{{ $lead->deal->id }}</p>
+                            <p class="dg-muted-sm"><strong>Stage:</strong> {{ $lead->deal->stage }}</p>
+                            <div class="dg-hero-actions">
+                                <x-ui.button :href="route('admin.deals.show', ['deal' => $lead->deal->id])">Open Deal</x-ui.button>
+                            </div>
+                        @else
+                            <p class="dg-muted-sm">No deal exists for this lead yet.</p>
+                            <form method="POST" action="{{ route('admin.leads.create-deal', ['lead' => $lead->id]) }}" class="dg-config-form">
+                                @csrf
+                                <div class="dg-config-grid">
+                                    <div class="dg-field">
+                                        <label class="dg-label" for="priority">Priority</label>
+                                        <select id="priority" name="priority" class="dg-select">
+                                            <option value="medium">medium</option>
+                                            <option value="high">high</option>
+                                            <option value="low">low</option>
+                                        </select>
+                                    </div>
+                                    <div class="dg-field">
+                                        <label class="dg-label" for="value_estimate">Value Estimate</label>
+                                        <x-ui.input id="value_estimate" name="value_estimate" type="number" min="0" step="0.01" />
+                                    </div>
+                                </div>
+                                <div class="dg-field">
+                                    <label class="dg-label" for="notes">Deal Notes</label>
+                                    <textarea id="notes" name="notes" class="dg-textarea" rows="3"></textarea>
+                                </div>
+                                <div class="dg-hero-actions">
+                                    <x-ui.button type="submit">Create Deal</x-ui.button>
+                                </div>
+                            </form>
+                        @endif
                     </x-ui.card>
                 </x-ui.card>
 

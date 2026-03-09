@@ -43,7 +43,7 @@ class LeadManagementController extends Controller
 
     public function show(int $leadId): View
     {
-        $lead = Lead::query()->findOrFail($leadId);
+        $lead = Lead::query()->with('deal')->findOrFail($leadId);
 
         return view('admin.leads.show', [
             'lead' => $lead,
