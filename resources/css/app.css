@@ -674,6 +674,86 @@
         color: #475569;
     }
 
+    .dg-admin-head {
+        margin-bottom: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+    }
+
+    .dg-table-wrap {
+        overflow-x: auto;
+    }
+
+    .dg-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.875rem;
+    }
+
+    .dg-table th,
+    .dg-table td {
+        border-bottom: 1px solid #e2e8f0;
+        padding: 0.75rem;
+        text-align: left;
+        color: #334155;
+        white-space: nowrap;
+    }
+
+    .dg-table th {
+        font-size: 0.75rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #64748b;
+        background-color: #f8fafc;
+    }
+
+    .dg-status-pill {
+        display: inline-flex;
+        align-items: center;
+        border-radius: 9999px;
+        padding: 0.2rem 0.6rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        background-color: #f1f5f9;
+        color: #334155;
+    }
+
+    .dg-status-pill-NEW {
+        background-color: #eff6ff;
+        color: #1d4ed8;
+    }
+
+    .dg-status-pill-QUALIFIED,
+    .dg-status-pill-QUOTED,
+    .dg-status-pill-NEGOTIATION {
+        background-color: #fef9c3;
+        color: #854d0e;
+    }
+
+    .dg-status-pill-WON {
+        background-color: #dcfce7;
+        color: #166534;
+    }
+
+    .dg-status-pill-LOST {
+        background-color: #fee2e2;
+        color: #991b1b;
+    }
+
+    .dg-form-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        align-items: center;
+    }
+
+    .dg-select-md {
+        min-width: 180px;
+    }
+
     @media (min-width: 640px) {
         .dg-category-grid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
