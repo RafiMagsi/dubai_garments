@@ -14,7 +14,7 @@
         <p class="dg-product-meta">Customization: {{ $product['customization'] }}</p>
         <div class="dg-product-actions">
             <x-ui.button variant="secondary" :href="route('products.show', ['slug' => $product['slug']])" class="dg-col-fill">Details</x-ui.button>
-            <x-ui.button href="#" class="dg-col-fill">Quote</x-ui.button>
+            <x-ui.button :href="route('quote-requests.create', ['product' => $product['slug']])" class="dg-col-fill">Quote</x-ui.button>
         </div>
     </div>
 </article>

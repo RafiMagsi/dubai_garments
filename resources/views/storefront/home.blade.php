@@ -25,7 +25,7 @@
                         <p class="dg-quick-item">2. Upload logo or design file</p>
                         <p class="dg-quick-item">3. Share quantity and deadline</p>
                     </div>
-                    <x-ui.button href="#" class="dg-btn-block">Submit Bulk Quote</x-ui.button>
+                    <x-ui.button :href="route('quote-requests.create')" class="dg-btn-block">Submit Bulk Quote</x-ui.button>
                 </x-ui.card>
             </div>
         </section>
@@ -113,7 +113,7 @@
                             <p class="dg-muted-sm">Send your requirements and get a quotation with timeline and production plan.</p>
                         </div>
                         <div class="dg-actions-wrap">
-                            <x-ui.button href="#">Request Bulk Quote</x-ui.button>
+                            <x-ui.button :href="route('quote-requests.create')">Request Bulk Quote</x-ui.button>
                             <x-ui.button variant="secondary" href="#">Talk to Sales</x-ui.button>
                         </div>
                     </div>

@@ -16,7 +16,7 @@
                     <p class="dg-muted-sm">Fabric: {{ $product['fabric'] }}</p>
                     <p class="dg-muted-sm">Customization: {{ $product['customization'] }}</p>
                     <div class="dg-hero-actions">
-                        <x-ui.button href="#">Request Quote</x-ui.button>
+                        <x-ui.button :href="route('quote-requests.create', ['product' => $product['slug']])">Request Quote</x-ui.button>
                         <x-ui.button variant="secondary" :href="route('products.index', ['category' => $product['category_slug']])">More {{ $product['category'] }}</x-ui.button>
                     </div>
                 </x-ui.card>
