@@ -8,6 +8,7 @@
             <div class="dg-admin-toolbar">
                 <x-ui.button variant="secondary" :href="route('admin.quotes.index')">Back to Quotes</x-ui.button>
                 <x-ui.button variant="secondary" :href="route('admin.deals.show', ['deal' => $quote->deal_id])">Deal</x-ui.button>
+                <x-ui.button variant="secondary" :href="route('admin.quotes.pdf', ['quote' => $quote->id])">Download PDF</x-ui.button>
             </div>
         </div>
 

@@ -53,7 +53,7 @@
                 </x-ui.card>
             </x-ui.card>
 
-            <div class="dg-process-grid">
+            <div class="dg-side-stack">
                 <x-ui.card class="dg-panel">
                     <h2 class="dg-title-sm">Update Lead Status</h2>
                     <form method="POST" action="{{ route('admin.leads.update-status', ['lead' => $lead->id]) }}" class="dg-config-form">
@@ -111,15 +111,18 @@
                 @if (! empty($aiMeta))
                     <x-ui.card class="dg-panel">
                         <h2 class="dg-title-sm">AI Processing</h2>
-                        <div class="dg-detail-list">
+                        <div class="dg-detail-list mb-2">
                             <div class="dg-detail-item"><span>Provider</span><strong>{{ $aiMeta['provider'] ?? '-' }}</strong></div>
                             <div class="dg-detail-item"><span>Fallback Used</span><strong>{{ !empty($aiMeta['fallback_used']) ? 'Yes' : 'No' }}</strong></div>
                             <div class="dg-detail-item"><span>Processed At</span><strong>{{ $aiMeta['processed_at'] ?? '-' }}</strong></div>
                         </div>
                         @if (! empty($aiMeta['extracted']) && is_array($aiMeta['extracted']))
-                            <div class="dg-pill-stack">
+                            <div class="dg-detail-list">
                                 @foreach ($aiMeta['extracted'] as $key => $value)
-                                    <span class="dg-status-pill">{{ ucfirst((string) $key) }}: {{ is_scalar($value) ? $value : json_encode($value) }}</span>
+                                    <div class="dg-detail-item">
+                                        <span>{{ ucfirst((string) $key) }}</span>
+                                        <strong>{{ is_scalar($value) ? $value : json_encode($value) }}</strong>
+                                    </div>
                                 @endforeach
                             </div>
                         @endif

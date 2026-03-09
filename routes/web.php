@@ -45,6 +45,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('/quotes', [QuoteController::class, 'index'])->name('quotes.index');
         Route::get('/quotes/{quote}', [QuoteController::class, 'show'])->name('quotes.show');
+        Route::get('/quotes/{quote}/pdf', [QuoteController::class, 'downloadPdf'])->name('quotes.pdf');
         Route::patch('/quotes/{quote}', [QuoteController::class, 'update'])->name('quotes.update');
 
         Route::get('/users', [UserManagementController::class, 'index'])->name('users.index');

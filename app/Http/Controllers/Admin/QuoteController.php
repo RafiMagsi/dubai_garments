@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Deal;
 use App\Models\Quote;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\Response;
 
 class QuoteController extends Controller
 {
@@ -52,6 +54,19 @@ class QuoteController extends Controller
             'statuses' => self::STATUSES,
             'itemsText' => $this->itemsToText((array) ($quoteModel->items_json ?? [])),
         ]);
+    }
+
+    public function downloadPdf(int $quote): Response
+    {
+        $quoteModel = Quote::query()->with(['deal.lead', 'deal.assignedUser'])->findOrFail($quote);
+
+        $pdf = Pdf::loadView('admin.quotes.pdf', [
+            'quote' => $quoteModel,
+        ]);
+
+        $filename = ($quoteModel->quote_number ?: 'quote-'.$quoteModel->id).'.pdf';
+
+        return $pdf->download($filename);
     }
 
     public function createFromDeal(Request $request, int $deal): RedirectResponse

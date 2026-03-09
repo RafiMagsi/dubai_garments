@@ -58,7 +58,10 @@
                                 <td><span class="dg-status-pill">{{ $quote->status }}</span></td>
                                 <td>{{ $quote->currency }} {{ number_format((float) $quote->total_price, 2) }}</td>
                                 <td>{{ $quote->expires_at?->format('M d, Y') ?: '-' }}</td>
-                                <td><x-ui.button variant="secondary" :href="route('admin.quotes.show', ['quote' => $quote->id])">Open</x-ui.button></td>
+                                <td class="dg-form-row">
+                                    <x-ui.button variant="secondary" :href="route('admin.quotes.show', ['quote' => $quote->id])">Open</x-ui.button>
+                                    <x-ui.button variant="secondary" :href="route('admin.quotes.pdf', ['quote' => $quote->id])">PDF</x-ui.button>
+                                </td>
                             </tr>
                         @empty
                             <tr>
